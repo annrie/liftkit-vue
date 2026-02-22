@@ -1,0 +1,30 @@
+{
+  "name": "@liftkit-vue/nuxt",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/module.mjs",
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@liftkit-vue/core": "workspace:*",
+    "@nuxt/kit": "^3.15.0"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.8.0",
+    "@nuxt/schema": "^3.15.0",
+    "nuxt": "^3.15.0",
+    "vue": "^3.5.0",
+    "vue-tsc": "^2.2.0",
+    "typescript": "^5.7.0"
+  }
+}

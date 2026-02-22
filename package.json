@@ -1,0 +1,13 @@
+{
+  "name": "liftkit-vue",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "dev": "pnpm --filter liftkit-vue-playground dev"
+  },
+  "packageManager": "pnpm@10.30.1",
+  "engines": {
+    "node": ">=20"
+  }
+}
