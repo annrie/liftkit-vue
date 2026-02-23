@@ -6,10 +6,17 @@
     "build": "nuxt build"
   },
   "dependencies": {
-    "@liftkit-vue/nuxt": "workspace:*"
+    "@liftkit-vue/nuxt": "workspace:*",
+    "@liftkit-vue/theme-css": "workspace:*",
+    "vue-router": "^5.0.3"
   },
   "devDependencies": {
-    "nuxt": "^3.15.0",
+    "@tailwindcss/vite": "^4.2.0",
+    "@unocss/nuxt": "^66.6.0",
+    "@unocss/preset-wind4": "^66.6.0",
+    "nuxt": "^4.3.1",
+    "tailwindcss": "^4.2.0",
+    "unocss": "^66.6.0",
     "vue": "^3.5.0"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "name": "@liftkit-vue/theme-css",
+  "version": "0.1.0",
+  "description": "LiftKit pure Tailwind v4 CSS theme",
+  "style": "css/index.css",
+  "exports": {
+    ".": "./css/index.css"
+  }
+}

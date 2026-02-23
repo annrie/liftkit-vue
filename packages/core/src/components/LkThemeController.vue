@@ -15,7 +15,7 @@ type LkColorGroup =
   | 'success'
   | 'info'
 
-const { palette, updateTheme, updateThemeFromMaster, colorMode, setColorMode } = useTheme()
+const { palette, updateTheme, updateThemeFromMaster, colorMode, colorModePreference, setColorMode } = useTheme()
 
 const brandPalette: LkColorGroup[] = ['primary', 'secondary', 'tertiary']
 const semanticPalette: LkColorGroup[] = ['error', 'warning', 'success', 'info']
@@ -41,8 +41,8 @@ function handleColorChange(key: LkColorGroup, newValue: string) {
   }
 }
 
-function handleColorModeSwitch() {
-  setColorMode(colorMode.value === 'dark' ? 'light' : 'dark')
+function handleColorModeChange(mode: 'auto' | 'light' | 'dark') {
+  setColorMode(mode)
 }
 
 async function handleCopyPalette() {
@@ -83,7 +83,7 @@ function getColorDescription(group: LkColorGroup): string {
       }"
       @click="isOpen = true"
     >
-      <span class="material-symbols-outlined display2">palette</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="2 2 20 20" fill="currentColor"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10a2.5 2.5 0 0 0 2.5-2.5c0-.61-.23-1.21-.64-1.67a.528.528 0 0 1-.13-.33c0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9m-5.5 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/></svg>
     </button>
   </div>
 
@@ -95,8 +95,23 @@ function getColorDescription(group: LkColorGroup): string {
             <!-- Header -->
             <div class="lk-row" style="align-items: center; justify-content: space-between">
               <h2 class="body-bold">Theme Controller</h2>
-              <button class="lk-icon-button" @click="isOpen = false">
-                <span class="material-symbols-outlined">close</span>
+              <button
+                :style="{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#e8e0e5',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '36px',
+                  height: '36px',
+                  cursor: 'pointer',
+                  padding: '0',
+                }"
+                @click="isOpen = false"
+                aria-label="Close"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="display: block"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#1b1b1f"/></svg>
               </button>
             </div>
 
@@ -113,11 +128,24 @@ const palette = {{ JSON.stringify(palette, null, 2) }}
 const colorMode = '{{ colorMode }}'</pre
                 >
                 <button
-                  class="lk-icon-button"
-                  style="position: absolute; inset: 1em 1em auto auto"
+                  :style="{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#e8e0e5',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '36px',
+                    height: '36px',
+                    cursor: 'pointer',
+                    padding: '0',
+                    position: 'absolute',
+                    top: '1em',
+                    right: '1em',
+                  }"
                   @click="handleCopyPalette"
                 >
-                  <span class="material-symbols-outlined">content_copy</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="display: block"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="#1b1b1f"/></svg>
                 </button>
               </div>
             </div>
@@ -125,21 +153,19 @@ const colorMode = '{{ colorMode }}'</pre
             <!-- Color Mode -->
             <div>
               <h2 class="capline mb-lg color-onsurfacevariant">Mode</h2>
-              <div class="lk-row" style="align-items: start; gap: var(--lk-size-md)">
-                <div class="lk-column">
-                  <label class="lk-switch">
-                    <input
-                      type="checkbox"
-                      :checked="colorMode === 'dark'"
-                      @change="handleColorModeSwitch"
-                    />
-                    <span class="lk-switch-slider"></span>
-                  </label>
-                </div>
-                <div class="lk-column">
-                  <label class="label mb-xs">Default to Dark Mode</label>
-                  <p class="caption color-onsurfacevariant mb-xs">Toggles dark mode.</p>
-                </div>
+              <p class="caption color-onsurfacevariant mb-xs">
+                Current: {{ colorMode }} {{ colorModePreference === 'auto' ? '(auto)' : '' }}
+              </p>
+              <div class="lk-row" style="gap: var(--lk-size-xs)">
+                <button
+                  v-for="mode in (['auto', 'light', 'dark'] as const)"
+                  :key="mode"
+                  class="lk-mode-button"
+                  :class="{ active: colorModePreference === mode }"
+                  @click="handleColorModeChange(mode)"
+                >
+                  {{ mode }}
+                </button>
               </div>
             </div>
 
@@ -257,12 +283,12 @@ const colorMode = '{{ colorMode }}'</pre
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--lk-inversesurface, #303034);
-  color: var(--lk-inverseonurface, #f2f0f4);
+  background: var(--light__inversesurface_lkv, #303034);
+  color: var(--light__inverseonsurface_lkv, #f2f0f4);
   border: none;
   border-radius: 50%;
-  width: var(--lk-size-xl, 48px);
-  height: var(--lk-size-xl, 48px);
+  width: 48px;
+  height: 48px;
   cursor: pointer;
 }
 
@@ -270,16 +296,15 @@ const colorMode = '{{ colorMode }}'</pre
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: var(--lk-size-lg, 40px);
-  height: var(--lk-size-lg, 40px);
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   background-color: transparent;
-  border: none;
+  border: 2px solid var(--light__onsurface_lkv, #1b1b1f);
   cursor: pointer;
-  outline: 2px solid var(--lk-onsurface, #1b1b1f);
+  outline: none;
   border-radius: 100em;
-  padding-block: 0px;
-  padding-inline: 0px;
+  padding: 0;
 }
 
 .lk-color-input::-webkit-color-swatch-wrapper {
@@ -309,7 +334,8 @@ const colorMode = '{{ colorMode }}'</pre
 
 .lk-theme-drawer-card {
   height: 100%;
-  background: var(--lk-surfacecontainerlowest, #ffffff);
+  background: var(--light__surfacecontainerlowest_lkv, #ffffff);
+  color: var(--light__onsurface_lkv, #1b1b1f);
   border-radius: var(--lk-size-sm, 8px);
   padding: var(--lk-size-md, 16px);
 }
@@ -330,13 +356,13 @@ const colorMode = '{{ colorMode }}'</pre
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1px solid var(--lk-outline, #767680);
+  background: var(--light__surfacecontainerhigh_lkv, #e8e0e5);
+  border: none;
   border-radius: 50%;
-  width: var(--lk-size-lg, 40px);
-  height: var(--lk-size-lg, 40px);
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-  color: inherit;
+  color: var(--light__onsurface_lkv, #1b1b1f);
 }
 
 .lk-column {
@@ -349,49 +375,22 @@ const colorMode = '{{ colorMode }}'</pre
   flex-direction: row;
 }
 
-.lk-switch {
-  position: relative;
-  display: inline-block;
-  width: 52px;
-  height: 32px;
-}
-
-.lk-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.lk-switch-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--lk-surfacecontainerhighest, #e4e1e6);
-  transition: 0.3s;
+.lk-mode-button {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid var(--light__outline_lkv, #767680);
   border-radius: 100em;
+  background: transparent;
+  color: var(--light__onsurface_lkv, #1b1b1f);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-.lk-switch-slider::before {
-  position: absolute;
-  content: '';
-  height: 24px;
-  width: 24px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--lk-outline, #767680);
-  transition: 0.3s;
-  border-radius: 50%;
-}
-
-.lk-switch input:checked + .lk-switch-slider {
-  background-color: var(--lk-primary, #004ee7);
-}
-
-.lk-switch input:checked + .lk-switch-slider::before {
-  transform: translateX(20px);
-  background-color: var(--lk-onprimary, #ffffff);
+.lk-mode-button.active {
+  background: var(--light__primary_lkv, #004ee7);
+  color: var(--light__onprimary_lkv, #ffffff);
+  border-color: var(--light__primary_lkv, #004ee7);
 }
 </style>

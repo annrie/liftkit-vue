@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "@liftkit-vue/theme-css";
+
+@source "../../components/**/*.vue";
+@source "../../pages/**/*.vue";
+@source "../../layouts/**/*.vue";
+@source "../../app.vue";
+
+@theme {
+  /* Playground specific overrides */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}

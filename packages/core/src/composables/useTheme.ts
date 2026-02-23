@@ -1,4 +1,4 @@
-import { ref, provide, inject, watch, onMounted, type InjectionKey, type Ref } from 'vue'
+import { ref, provide, inject, watch, onMounted, onUnmounted, type InjectionKey, type Ref } from 'vue'
 import { hexFromArgb, argbFromHex, TonalPalette, Hct, customColor } from '@material/material-color-utilities'
 import materialDynamicColors from 'material-dynamic-colors'
 
@@ -73,13 +73,16 @@ export interface PaletteState {
   [key: string]: string
 }
 
+export type ColorModePreference = 'light' | 'dark' | 'auto'
+
 export interface ThemeContext {
   theme: Ref<ThemeState>
   updateTheme: (palette: PaletteState) => Promise<void>
   updateThemeFromMaster: (hexCode: string) => Promise<void>
   palette: Ref<PaletteState>
   colorMode: Ref<'light' | 'dark'>
-  setColorMode: (mode: 'light' | 'dark') => void
+  colorModePreference: Ref<ColorModePreference>
+  setColorMode: (mode: ColorModePreference) => void
 }
 
 export const THEME_INJECTION_KEY: InjectionKey<ThemeContext> = Symbol('liftkit-theme')
@@ -183,10 +186,31 @@ export function provideTheme(initialPalette?: Partial<PaletteState>) {
     ...initialPalette,
   })
 
+  const colorModePreference = ref<ColorModePreference>('auto')
   const colorMode = ref<'light' | 'dark'>('light')
 
-  function setColorMode(mode: 'light' | 'dark') {
-    colorMode.value = mode
+  function getSystemColorMode(): 'light' | 'dark' {
+    if (typeof window === 'undefined') return 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+
+  function resolveColorMode() {
+    colorMode.value = colorModePreference.value === 'auto'
+      ? getSystemColorMode()
+      : colorModePreference.value
+  }
+
+  function setColorMode(mode: ColorModePreference) {
+    colorModePreference.value = mode
+    resolveColorMode()
+  }
+
+  // Listen for OS color scheme changes
+  let mediaQuery: MediaQueryList | null = null
+  function onSystemChange() {
+    if (colorModePreference.value === 'auto') {
+      resolveColorMode()
+    }
   }
 
   async function updateTheme(pal: PaletteState) {
@@ -383,7 +407,20 @@ export function provideTheme(initialPalette?: Partial<PaletteState>) {
   watch([theme, colorMode], applyCssVariables, { deep: true })
 
   onMounted(() => {
+    // Detect system color scheme and listen for changes
+    if (typeof window !== 'undefined') {
+      mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      mediaQuery.addEventListener('change', onSystemChange)
+      resolveColorMode()
+    }
     updateTheme(palette.value)
+  })
+
+  onUnmounted(() => {
+    if (mediaQuery) {
+      mediaQuery.removeEventListener('change', onSystemChange)
+      mediaQuery = null
+    }
   })
 
   // Watch palette changes to regenerate theme
@@ -397,6 +434,7 @@ export function provideTheme(initialPalette?: Partial<PaletteState>) {
     updateThemeFromMaster,
     palette,
     colorMode,
+    colorModePreference,
     setColorMode,
   }
 

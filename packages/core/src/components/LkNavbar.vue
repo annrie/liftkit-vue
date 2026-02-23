@@ -73,12 +73,14 @@ const dataAttrs = computed(() =>
         :class="['navbar-mobile', { active: menuOpen }]"
       >
         <button
-          data-lk-component="icon-button"
+          class="navbar-menu-toggle"
+          type="button"
           aria-label="Toggle menu"
+          :aria-expanded="menuOpen"
           @click="toggleMenu"
         >
           <slot name="menuIcon">
-            <span>&#9776;</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </slot>
         </button>
         <slot name="mobileBrand">
@@ -86,16 +88,16 @@ const dataAttrs = computed(() =>
             <img :alt="logoAlt" :src="logoSrc" data-lk-component="image" data-lk-image-width="md" data-lk-image-height="md" />
           </a>
         </slot>
-        <div data-lk-component="column">
+        <div v-show="menuOpen" data-lk-component="column">
           <slot name="navButtons" />
         </div>
-        <div data-lk-component="column">
+        <div v-show="menuOpen" data-lk-component="column">
           <slot name="navDropdowns" />
         </div>
-        <div>
+        <div v-show="menuOpen">
           <slot name="iconButtons" />
         </div>
-        <div data-lk-component="column" class="flex-h gap-sm">
+        <div v-show="menuOpen" data-lk-component="column" class="flex-h gap-sm">
           <slot name="ctaButtons" />
         </div>
       </div>

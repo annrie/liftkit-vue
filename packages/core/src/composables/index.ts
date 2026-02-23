@@ -6,6 +6,7 @@ export {
   type ThemeState,
   type PaletteState,
   type ThemeContext,
+  type ColorModePreference,
 } from './useTheme'
 
 export {

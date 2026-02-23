@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
-import { provideTheme, type PaletteState } from '../composables'
+import { computed } from 'vue'
+import { provideTheme, type PaletteState, type ColorModePreference } from '../composables'
 
 export interface LkThemeProps {
   /** Source/seed color to generate theme from (hex) */
   sourceColor?: string
-  /** Color mode - light or dark */
-  colorMode?: 'light' | 'dark'
+  /** Color mode - 'auto' follows OS setting, 'light'/'dark' forces mode */
+  colorMode?: ColorModePreference
   /** Custom initial palette overrides */
   palette?: Partial<PaletteState>
 }
 
 const props = withDefaults(defineProps<LkThemeProps>(), {
   sourceColor: undefined,
-  colorMode: 'light',
+  colorMode: 'auto',
   palette: undefined,
 })
 
@@ -29,10 +29,8 @@ const initialPalette = computed<Partial<PaletteState>>(() => {
 // Provide theme context to all children
 const theme = provideTheme(initialPalette.value)
 
-// Set the initial color mode
-if (props.colorMode === 'dark') {
-  theme.setColorMode('dark')
-}
+// Set the initial color mode preference
+theme.setColorMode(props.colorMode)
 
 // If sourceColor is provided, generate theme from it
 if (props.sourceColor) {
