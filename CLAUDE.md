@@ -1,82 +1,57 @@
-# CLAUDE.md
+## ワークフロー設計
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+### 1. Planモードを基本とする
+- 3ステップ以上 or アーキテクチャに関わるタスクは必ずPlanモードで開始する
+- 途中でうまくいかなくなったら、無理に進めずすぐに立ち止まって再計画する
+- 構築だけでなく、検証ステップにもPlanモードを使う
+- 曖昧さを減らすため、実装前に詳細な仕様を書く
+- 詳細な技術スタック・API仕様は **`AGENTS.md`** を参照
 
-## Project Overview
+### 2. サブエージェント戦略
+- メインのコンテキストウィンドウをクリーンに保つためにサブエージェントを積極的に活用する
+- リサーチ・調査・並列分析はサブエージェントに任せる
+- 複雑な問題には、サブエージェントを使ってより多くの計算リソースを投入する
+- 集中して実行するために、サブエージェント1つにつき1タスクを割り当てる
 
-LiftKit Vue is a Material Design 3-inspired Vue 3 component library with dynamic theming powered by `@material/material-color-utilities`. It ships as a pnpm monorepo with multiple packages.
+### 3. 自己改善ループ
+- ユーザーから修正を受けたら必ず `tasks/lessons.md` にそのパターンを記録する
+- 同じミスを繰り返さないように、自分へのルールを書く
+- ミス率が下がるまで、ルールを徹底的に改善し続ける
+- セッション開始時に、そのプロジェクトに関連するlessonsをレビューする
 
-## Commands
+### 4. 完了前に必ず検証する
+- 動作を証明できるまで、タスクを完了とマークしない
+- 必要に応じてmainブランチと自分の変更の差分を確認する
+- 「スタッフエンジニアはこれを承認するか？」と自問する
+- テストを実行し、ログを確認し、正しく動作することを示す
 
-```bash
-# Install dependencies
-pnpm install
+### 5. エレガントさを追求する（バランスよく）
+- 重要な変更をする前に「もっとエレガントな方法はないか？」と一度立ち止まる
+- ハック的な修正に感じたら「今知っていることをすべて踏まえて、エレガントな解決策を実装する」
+- シンプルで明白な修正にはこのプロセスをスキップする（過剰設計しない）
+- 提示する前に自分の作業に自問自答する
 
-# Dev server (runs the Nuxt playground)
-pnpm dev
+### 6. 自律的なバグ修正
+- バグレポートを受けたら、手取り足取り教えてもらわずにそのまま修正する
+- ログ・エラー・失敗しているテストを見て、自分で解決する
+- ユーザーのコンテキスト切り替えをゼロにする
+- 言われなくても、失敗しているCIテストを修正しに行く
 
-# Build all packages
-pnpm build
+---
 
-# Build a single package
-pnpm --filter @liftkit-vue/core build
-pnpm --filter @liftkit-vue/nuxt build    # uses nuxt-module-build
+## タスク管理
 
-# Type check all packages
-pnpm typecheck
-```
+1. **まず計画を立てる**：チェック可能な項目として `tasks/todo.md` に計画を書く
+2. **計画を確認する**：実装を開始する前に確認する
+3. **進捗を記録する**：完了した項目を随時マークしていく
+4. **変更を説明する**：各ステップで高レベルのサマリーを提供する
+5. **結果をドキュメント化する**：`tasks/todo.md` にレビューセクションを追加する
+6. **学びを記録する**：修正を受けた後に `tasks/lessons.md` を更新する
 
-## Monorepo Structure
+---
 
-```
-packages/
-  core/          # @liftkit-vue/core — Vue 3 components, composables, CSS utilities, types
-  nuxt/          # @liftkit-vue/nuxt — Nuxt 3 module (auto-imports all Lk* components)
-  theme-css/     # @liftkit-vue/theme-css — Pure Tailwind v4 CSS theme (no JS)
-  preset-unocss/ # @liftkit-vue/preset-unocss — UnoCSS preset (WIP, uses unbuild)
-playground/      # Nuxt 3 app for development/testing (uses @liftkit-vue/nuxt)
-```
+## コア原則
 
-Package manager: **pnpm 10** with workspaces. Node >= 20.
-
-## Architecture
-
-### Theme System (core pattern)
-
-The theming is built around Material Design 3 dynamic color. The flow is:
-
-1. `LkTheme.vue` calls `provideTheme()` at the root, which Vue `provide()`s a `ThemeContext`
-2. `provideTheme()` generates light/dark tonal palettes from seed hex colors using `@material/material-color-utilities` (`TonalPalette`, `Hct`)
-3. Palette changes are watched and automatically applied as CSS custom variables on `:root` (pattern: `--light__<token>_lkv`, `--dark__<token>_lkv`)
-4. Child components use `useTheme()` (inject) to access palette, colorMode, and update functions
-5. `updateThemeFromMaster(hex)` generates a full palette from a single source color via `material-dynamic-colors`
-
-### CSS System
-
-All utility CSS lives in `packages/core/src/css/`. The design system uses a golden-ratio scale factor (`--lk-scalefactor: 1.618`) for sizing tokens (`--lk-size-sm`, `--lk-size-lg`, etc.). Color variables follow the pattern `--light__<token>_lkv` / `--dark__<token>_lkv`.
-
-The CSS entry point is `packages/core/src/css/index.css`, which imports all utility files and `@csstools/normalize.css`.
-
-### Nuxt Module
-
-`packages/nuxt/src/module.ts` registers all Lk* components for Nuxt auto-import by pointing directly to the **source `.vue` files** in `packages/core/src/components/` (not the built dist). This is intentional — pre-built dist components can't resolve sibling component imports within Nuxt's auto-import system. The module also injects the core CSS and a runtime plugin.
-
-Config key in `nuxt.config.ts`: `liftkit`.
-
-### Component Naming
-
-All components are prefixed `Lk` (e.g., `LkButton`, `LkCard`, `LkTheme`). Most are single-file `.vue` components in `packages/core/src/components/`. Compound components like `LkDropdown` live in subdirectories.
-
-### Core Package Build
-
-`packages/core` builds as a Vite library (`vite build`) outputting ESM (`.mjs`) and CJS (`.cjs`). Vue, `@floating-ui/vue`, and `lucide-vue-next` are externalized. CSS files are exported via `./css/*` path mapping (not bundled into JS).
-
-### Key Dependencies
-
-- `@material/material-color-utilities` + `material-dynamic-colors` — M3 color generation
-- `@floating-ui/vue` — Dropdown/select positioning
-- `@csstools/normalize.css` — CSS reset
-
-## Type System
-
-Global type declarations in `packages/core/src/types/` define LiftKit-specific types: `lk-color.d.ts`, `lk-material.d.ts`, `lk-shape.d.ts`, `lk-typography.d.ts`, `lk-units.d.ts`, `lk-utility.d.ts`. These are imported for side effects in the core entry point.
+- **シンプル第一**：すべての変更をできる限りシンプルにする。影響するコードを最小限にする。
+- **手を抜かない**：根本原因を見つける。一時的な修正は避ける。シニアエンジニアの水準を保つ。
+- **影響を最小化する**：変更は必要な箇所のみにとどめる。バグを新たに引き込まない。
