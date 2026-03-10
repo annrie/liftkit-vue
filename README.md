@@ -19,10 +19,14 @@ LiftKit Vue is a monorepo that provides a complete design system with dynamic co
 
 ## Installation
 
-> **Note**: npm packages are not yet published. Install directly from GitHub:
-
 ```bash
-pnpm add github:YOUR_USERNAME/liftkit-vue
+pnpm add @liftkit-vue/core
+# or for Nuxt
+pnpm add @liftkit-vue/nuxt
+# or for UnoCSS
+pnpm add @liftkit-vue/preset-unocss
+# or for pure CSS
+pnpm add @liftkit-vue/theme-css
 ```
 
 ## Quick Start (Nuxt)
@@ -101,10 +105,14 @@ LiftKit Vue は、Google の Material Color Utilities を活用した動的カ�
 
 ## インストール
 
-> **注意**: npm パッケージは未公開です。GitHub から直接インストールしてください:
-
 ```bash
-pnpm add github:YOUR_USERNAME/liftkit-vue
+pnpm add @liftkit-vue/core
+# または Nuxt 用
+pnpm add @liftkit-vue/nuxt
+# または UnoCSS 用
+pnpm add @liftkit-vue/preset-unocss
+# または 純粋 CSS 用
+pnpm add @liftkit-vue/theme-css
 ```
 
 ## クイックスタート (Nuxt)
