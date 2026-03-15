@@ -17,9 +17,9 @@
   --lk-scalefactor: 1.618;
 
   --lk-wholestep: var(--lk-scalefactor);
-  --lk-halfstep: calc(round(pow(var(--lk-scalefactor), 0.5), 0.001));
-  --lk-quarterstep: round(pow(var(--lk-scalefactor), 0.25), 0.001);
-  --lk-eighthstep: round(pow(var(--lk-scalefactor), 0.125), 0.001);
+  --lk-halfstep: 1.272;
+  --lk-quarterstep: 1.128;
+  --lk-eighthstep: 1.062;
   --lk-wholestep-dec: calc(var(--lk-wholestep) - 1);
   --lk-halfstep-dec: calc(var(--lk-halfstep) - 1);
   --lk-quarterstep-dec: calc(var(--lk-quarterstep) - 1);
@@ -27,14 +27,14 @@
 
   --lk-size-md: 1em;
   --lk-size-sm: calc(1em / var(--lk-scalefactor));
-  --lk-size-xs: calc(1em * round(pow(var(--lk-scalefactor), -1), 0.001));
-  --lk-size-2xs: calc(1em * round(pow(var(--lk-scalefactor), -2), 0.001));
-  --lk-size-3xs: calc(1em * round(pow(var(--lk-scalefactor), -3), 0.001));
+  --lk-size-xs: calc(1em * 0.618);
+  --lk-size-2xs: calc(1em * 0.382);
+  --lk-size-3xs: calc(1em * 0.236);
   --lk-size-lg: calc(1em * var(--lk-scalefactor));
-  --lk-size-xl: calc(1em * round(pow(var(--lk-scalefactor), 2), 0.001));
-  --lk-size-2xl: calc(1em * round(pow(var(--lk-scalefactor), 3), 0.001));
-  --lk-size-3xl: calc(1em * round(pow(var(--lk-scalefactor), 4), 0.001));
-  --lk-size-4xl: calc(1em * round(pow(var(--lk-scalefactor), 5), 0.001));
+  --lk-size-xl: calc(1em * 2.618);
+  --lk-size-2xl: calc(1em * 4.236);
+  --lk-size-3xl: calc(1em * 6.854);
+  --lk-size-4xl: calc(1em * 11.089);
 
   /* Unitless sizes; required for adhoc calculations (division and multiplication in calc() require unitless numbers */
   --lk-size-sm-unitless: calc(1 / var(--lk-scalefactor));
