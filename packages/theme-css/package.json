@@ -1,6 +1,6 @@
 {
   "name": "@liftkit-vue/theme-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "LiftKit pure CSS theme with golden-ratio design tokens - Tailwind v4 compatible",
   "license": "MIT",
   "author": "annrie",

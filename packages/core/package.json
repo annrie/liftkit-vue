@@ -1,6 +1,6 @@
 {
   "name": "@liftkit-vue/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Material Design 3 inspired Vue 3 component library with dynamic theming and golden-ratio design tokens",
   "type": "module",
   "license": "MIT",
