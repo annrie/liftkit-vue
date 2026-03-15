@@ -1,4 +1,6 @@
-@import "./liftkit-core.css";
+/* トークン（変数）とリセット（要素セレクタ）を分離インポート */
+@import "./liftkit-tokens.css";
+@import "./liftkit-reset.css";
 @import "./align-items.css";
 @import "./align-self.css";
 @import "./aspect-ratios.css";

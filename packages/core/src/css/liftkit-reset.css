@@ -1,0 +1,74 @@
+/* LiftKit Reset - 要素レベルセレクタ
+   HTML要素のネイティブ表示をリセットするスタイル。
+   外部UIフレームワーク（Nuxt UI等）と併用する場合は、このファイルを読み込まないこと。
+
+   TODO: Consider a more robust normalizing solution. there's gotta be open source solutions to this.
+*/
+
+html,
+body {
+  max-width: 100vw;
+  color: var(--lk-onbackground);
+  background: var(--lk-background);
+  color-scheme: dark;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+body {
+  color: var(--lk-onbackground);
+  background: var(--lk-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--lk-onbackground);
+  background-color: var(--lk-background);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.swatch {
+  padding: calc(1.272em / var(--lk-size-xl-unitless)) var(--lk-size-sm);
+  border-radius: var(--lk-size-xs);
+  margin: var(--lk-size-sm) 0;
+}
+
+/* Make Buttons into Inline Elements */
+
+button {
+  --button-font-size: var(--lk-size-md);
+  --button-line-height: var(--lk-halfstep);
+  --button-padX-default: var(--lk-size-md);
+  --button-padX-sideWithIcon: calc(1em * calc(var(--lk-wholestep) / var(--lk-size-xl-unitless)));
+  --button-padY: calc(var(--button-font-size) * calc(var(--lk-halfstep) / var(--lk-size-xl-unitless)));
+  --button-gap: var(--button-padX-sideWithIcon);
+  /* In division, the second value MUST be unitless */
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 100em;
+  position: relative;
+  text-decoration: none;
+  white-space: normal;
+  word-break: keep-all;
+  overflow: hidden;
+  padding: var(--button-padY) 1em;
+  font-weight: 500;
+  font-size: var(--button-font-size);
+  line-height: var(--button-line-height);
+}
+
+button span {
+  text-transform: capitalize;
+}

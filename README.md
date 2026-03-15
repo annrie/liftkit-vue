@@ -51,6 +51,44 @@ Wrap your app with the theme provider:
 
 All components are auto-imported — use them directly in your templates.
 
+### Using with Nuxt UI or other UI frameworks
+
+When using LiftKit alongside external UI frameworks (e.g. Nuxt UI), you can selectively load only the design tokens to avoid CSS conflicts:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@liftkit-vue/nuxt'],
+  liftkit: {
+    css: 'tokens',        // Load only design tokens (CSS variables)
+    includeReset: false,   // Exclude element-level resets (*, button, body, a)
+    components: true,      // Still auto-import LiftKit components
+  },
+})
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `css` | `'full' \| 'tokens' \| 'none'` | `'full'` | CSS injection mode |
+| `includeReset` | `boolean` | `true` | Include element-level resets (`*`, `button`, `body`, `a`) |
+| `components` | `boolean` | `true` | Auto-import LiftKit components |
+
+### CSS Architecture
+
+The core CSS is split into two independent files:
+
+- **`liftkit-tokens.css`** — `:root` CSS custom properties only (`--lk-*` variables). Safe to use in any environment.
+- **`liftkit-reset.css`** — Element-level selectors (`*`, `button`, `body`, `a`, `html`). Intended for LiftKit-only projects; skip when using external UI frameworks.
+
+For manual CSS imports (without the Nuxt module):
+
+```css
+/* Tokens only — safe with any UI framework */
+@import '@liftkit-vue/core/src/css/liftkit-tokens.css';
+
+/* Full — includes element resets (LiftKit-only projects) */
+@import '@liftkit-vue/core/src/css/liftkit-core.css';
+```
+
 ## Features
 
 - **Dynamic Theming**: Generate entire color schemes from a single seed color
@@ -136,6 +174,44 @@ export default defineNuxtConfig({
 ```
 
 全コンポーネントが自動インポートされます。
+
+### Nuxt UI 等の外部UIフレームワークとの併用
+
+外部UIフレームワーク（Nuxt UI 等）と併用する場合、デザイントークンのみを選択的にロードして CSS 競合を回避できます:
+
+```ts
+export default defineNuxtConfig({
+  modules: ['@liftkit-vue/nuxt'],
+  liftkit: {
+    css: 'tokens',        // デザイントークン（CSS変数）のみ
+    includeReset: false,   // 要素リセット（*, button, body, a）を除外
+    components: true,      // LiftKit コンポーネントは自動インポート
+  },
+})
+```
+
+| オプション | 型 | デフォルト | 説明 |
+|-----------|------|---------|------|
+| `css` | `'full' \| 'tokens' \| 'none'` | `'full'` | CSS 注入モード |
+| `includeReset` | `boolean` | `true` | 要素リセット（`*`, `button`, `body`, `a`）を含めるか |
+| `components` | `boolean` | `true` | LiftKit コンポーネントの自動インポート |
+
+### CSS アーキテクチャ
+
+コア CSS は2つの独立したファイルに分割されています:
+
+- **`liftkit-tokens.css`** — `:root` CSS カスタムプロパティのみ（`--lk-*` 変数）。どの環境でも安全に使用可能。
+- **`liftkit-reset.css`** — 要素レベルセレクタ（`*`, `button`, `body`, `a`, `html`）。LiftKit 単独プロジェクト向け。外部UIフレームワーク使用時はスキップ。
+
+手動 CSS インポート（Nuxt モジュールなし）:
+
+```css
+/* トークンのみ — 外部UIフレームワークと安全に併用可能 */
+@import '@liftkit-vue/core/src/css/liftkit-tokens.css';
+
+/* フル — 要素リセットを含む（LiftKit単独プロジェクト向け） */
+@import '@liftkit-vue/core/src/css/liftkit-core.css';
+```
 
 ## 機能
 
