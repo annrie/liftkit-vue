@@ -1,9 +1,11 @@
 
 
-
+/* トークン（変数定義）はレイヤー外で定義 — 安全にどの環境でも使える */
+@import "./liftkit-tokens.css";
 
 @layer lk-base {
-    @import "./liftkit-core.css";
+    /* リセット（要素セレクタ）はレイヤー内に配置 */
+    @import "./liftkit-reset.css";
     @import "./align-items.css";
     @import "./align-self.css";
     @import "./aspect-ratios.css";

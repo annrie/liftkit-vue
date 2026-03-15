@@ -1,9 +1,28 @@
 {
   "name": "@liftkit-vue/theme-css",
-  "version": "0.1.0",
-  "description": "LiftKit pure Tailwind v4 CSS theme",
+  "version": "0.2.0",
+  "description": "LiftKit pure CSS theme with golden-ratio design tokens - Tailwind v4 compatible",
+  "license": "MIT",
+  "author": "annrie",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/annrie/liftkit-vue",
+    "directory": "packages/theme-css"
+  },
+  "homepage": "https://github.com/annrie/liftkit-vue/tree/main/packages/theme-css",
+  "bugs": "https://github.com/annrie/liftkit-vue/issues",
+  "keywords": [
+    "css",
+    "design-tokens",
+    "tailwind",
+    "material-design",
+    "golden-ratio",
+    "theme",
+    "liftkit"
+  ],
   "style": "css/index.css",
   "exports": {
     ".": "./css/index.css"
-  }
+  },
+  "files": ["css"]
 }

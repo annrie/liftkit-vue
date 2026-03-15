@@ -1,7 +1,27 @@
 {
   "name": "@liftkit-vue/nuxt",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "Nuxt 4 module for LiftKit Vue - auto-imports components and CSS design tokens",
   "type": "module",
+  "license": "MIT",
+  "author": "annrie",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/annrie/liftkit-vue",
+    "directory": "packages/nuxt"
+  },
+  "homepage": "https://github.com/annrie/liftkit-vue/tree/main/packages/nuxt",
+  "bugs": "https://github.com/annrie/liftkit-vue/issues",
+  "keywords": [
+    "nuxt",
+    "nuxt4",
+    "nuxt-module",
+    "vue",
+    "material-design",
+    "md3",
+    "design-system",
+    "liftkit"
+  ],
   "main": "./dist/module.mjs",
   "exports": {
     ".": {
@@ -15,7 +35,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@liftkit-vue/core": "workspace:*",
+    "@liftkit-vue/core": "workspace:^",
     "@nuxt/kit": "^4.3.1"
   },
   "devDependencies": {
