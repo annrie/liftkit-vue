@@ -6,7 +6,9 @@ UnoCSS preset for the LiftKit design system — provides utility classes mapped 
 
 ## Installation
 
-> **Note**: npm package is not yet published. Currently available via the monorepo workspace only.
+```bash
+npm install @liftkit-vue/preset-unocss
+```
 
 ## Setup
 
@@ -54,7 +56,9 @@ LiftKit デザインシステム用の UnoCSS プリセットです。LiftKit �
 
 ## インストール
 
-> **注意**: npm パッケージは未公開です。現在はモノレポのワークスペース経由でのみ利用可能です。
+```bash
+npm install @liftkit-vue/preset-unocss
+```
 
 ## セットアップ
 

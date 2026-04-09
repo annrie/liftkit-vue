@@ -6,7 +6,9 @@ Pure CSS theme package for LiftKit — use with Tailwind v4 or any CSS framework
 
 ## Installation
 
-> **Note**: npm package is not yet published. Currently available via the monorepo workspace only.
+```bash
+npm install @liftkit-vue/theme-css
+```
 
 ## Usage
 
@@ -50,7 +52,9 @@ LiftKit の純粋 CSS テーマパッケージです。Tailwind v4 や任意の 
 
 ## インストール
 
-> **注意**: npm パッケージは未公開です。現在はモノレポのワークスペース経由でのみ利用可能です。
+```bash
+npm install @liftkit-vue/theme-css
+```
 
 ## 使い方
 
