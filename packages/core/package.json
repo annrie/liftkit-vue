@@ -1,6 +1,6 @@
 {
   "name": "@liftkit-vue/core",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Material Design 3 inspired Vue 3 component library with dynamic theming and golden-ratio design tokens",
   "type": "module",
   "license": "MIT",
@@ -34,23 +34,27 @@
     },
     "./css/*": "./src/css/*"
   },
-  "files": ["dist", "src/css", "src/components"],
+  "files": [
+    "dist",
+    "src/css",
+    "src/components"
+  ],
   "scripts": {
     "build": "vite build",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@material/material-color-utilities": "^0.3.0",
-    "material-dynamic-colors": "^1.1.2",
-    "@floating-ui/vue": "^1.1.6",
-    "@csstools/normalize.css": "^12.1.1"
+    "@csstools/normalize.css": "^12.1.1",
+    "@floating-ui/vue": "^1.1.11",
+    "@material/material-color-utilities": "^0.4.0",
+    "material-dynamic-colors": "^1.1.4"
   },
   "devDependencies": {
-    "vue": "^3.5.0",
-    "vite": "^6.0.0",
-    "typescript": "^5.7.0",
-    "@vitejs/plugin-vue": "^5.2.0",
-    "vue-tsc": "^2.2.0"
+    "@vitejs/plugin-vue": "^6.0.5",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.8",
+    "vue": "^3.5.32",
+    "vue-tsc": "^3.2.6"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
