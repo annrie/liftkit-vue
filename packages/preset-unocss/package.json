@@ -1,6 +1,6 @@
 {
   "name": "@liftkit-vue/preset-unocss",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "UnoCSS preset for the LiftKit design system - golden-ratio spacing, MD3 colors, typography scale",
   "type": "module",
   "license": "MIT",
@@ -31,7 +31,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
@@ -39,11 +41,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@unocss/core": "^66.6.5"
+    "@unocss/core": "^66.6.8"
   },
   "devDependencies": {
+    "typescript": "^6.0.2",
     "unbuild": "^3.6.1",
-    "typescript": "^5.9.3",
-    "unocss": "^66.6.5"
+    "unocss": "^66.6.8"
   }
 }
