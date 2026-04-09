@@ -6,10 +6,8 @@ Nuxt 4 module for LiftKit Vue — auto-imports all components and injects the CS
 
 ## Installation
 
-> **Note**: npm package is not yet published. Install the monorepo from GitHub:
-
 ```bash
-pnpm add github:YOUR_USERNAME/liftkit-vue
+npm install @liftkit-vue/nuxt
 ```
 
 ## Setup
@@ -82,10 +80,8 @@ LiftKit Vue 用の Nuxt 4 モジュールです。全コンポーネントの自
 
 ## インストール
 
-> **注意**: npm パッケージは未公開です。GitHub からモノレポをインストールしてください:
-
 ```bash
-pnpm add github:YOUR_USERNAME/liftkit-vue
+npm install @liftkit-vue/nuxt
 ```
 
 ## セットアップ

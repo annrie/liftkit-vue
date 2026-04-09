@@ -6,7 +6,9 @@ The core package of LiftKit Vue — Vue 3 components, composables, and CSS desig
 
 ## Installation
 
-> **Note**: npm package is not yet published. Currently available via the monorepo workspace only.
+```bash
+npm install @liftkit-vue/core
+```
 
 For Nuxt projects, use [`@liftkit-vue/nuxt`](../nuxt) instead for auto-imports.
 
@@ -98,7 +100,9 @@ LiftKit Vue のコアパッケージです。Material Design 3 の動的カラ�
 
 ## インストール
 
-> **注意**: npm パッケージは未公開です。現在はモノレポのワークスペース経由でのみ利用可能です。
+```bash
+npm install @liftkit-vue/core
+```
 
 Nuxt プロジェクトでは、自動インポート対応の [`@liftkit-vue/nuxt`](../nuxt) を使用してください。
 
