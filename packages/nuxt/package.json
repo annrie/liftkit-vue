@@ -1,6 +1,6 @@
 {
   "name": "@liftkit-vue/nuxt",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Nuxt 4 module for LiftKit Vue - auto-imports components and CSS design tokens",
   "type": "module",
   "license": "MIT",
@@ -37,15 +37,15 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@liftkit-vue/core": "workspace:^",
-    "@nuxt/kit": "^4.4.2"
+    "@liftkit-vue/core": "^0.2.3",
+    "@nuxt/kit": "^4.4.8"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.4.2",
-    "nuxt": "^4.4.2",
-    "typescript": "^6.0.2",
-    "vue": "^3.5.32",
-    "vue-tsc": "^3.2.6"
+    "@nuxt/schema": "^4.4.8",
+    "nuxt": "^4.4.8",
+    "typescript": "^6.0.3",
+    "vue": "^3.5.39",
+    "vue-tsc": "^3.3.7"
   }
 }
