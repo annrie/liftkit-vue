@@ -50,11 +50,11 @@
     "material-dynamic-colors": "^1.1.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.5",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.8",
-    "vue": "^3.5.32",
-    "vue-tsc": "^3.2.6"
+    "@vitejs/plugin-vue": "^6.0.8",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.4",
+    "vue": "^3.5.39",
+    "vue-tsc": "^3.3.7"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
