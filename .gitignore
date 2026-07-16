@@ -4,6 +4,6 @@ dist
 .output
 *.local
 .DS_Store
-.claude/
 .entire/
 .env
+.claude/settings.local.json
