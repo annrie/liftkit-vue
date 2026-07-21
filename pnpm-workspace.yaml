@@ -2,5 +2,13 @@ packages:
   - packages/*
   - playground
 
-onlyBuiltDependencies:
-  - esbuild
+# pnpm 11 の minimumReleaseAge デフォルト(1日)を無効化。pnpm 10 まではガード無し(=0)
+# だったため挙動を揃える。deps 更新は手動レビュー・テスト前提。
+minimumReleaseAge: 0
+
+# ビルドスクリプト実行ポリシー。pnpm 11 で onlyBuiltDependencies は廃止 → allowBuilds(map)へ。
+# esbuild はビルドが必要なため true。それ以外は未実行(false)。
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: true
+  vue-demi: false

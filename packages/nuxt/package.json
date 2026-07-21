@@ -38,14 +38,14 @@
   },
   "dependencies": {
     "@liftkit-vue/core": "^0.2.3",
-    "@nuxt/kit": "^4.4.8"
+    "@nuxt/kit": "^4.5.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.4.8",
-    "nuxt": "^4.4.8",
+    "@nuxt/schema": "^4.5.0",
+    "nuxt": "^4.5.0",
     "typescript": "^6.0.3",
-    "vue": "^3.5.39",
+    "vue": "^3.5.40",
     "vue-tsc": "^3.3.7"
   }
 }
