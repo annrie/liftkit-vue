@@ -1,5 +1,20 @@
 # LiftKit Vue
 
+<p align="center">
+  <!-- License -->
+  <a href="LICENSE">
+    <img src="https://img.shields.io/github/license/annrie/liftkit-vue.svg" alt="License">
+  </a>
+  <!-- Stars -->
+  <a href="https://github.com/annrie/liftkit-vue/stargazers">
+    <img src="https://img.shields.io/github/stars/annrie/liftkit-vue.svg" alt="Stars">
+  </a>
+  <!-- Last commit -->
+  <a href="https://github.com/annrie/liftkit-vue/commits">
+    <img src="https://img.shields.io/github/last-commit/annrie/liftkit-vue.svg" alt="Last commit">
+  </a>
+</p>
+
 A Material Design 3 inspired component library and theming system for Vue 3 + Nuxt 4.
 
 **[日本語版はこちら](#日本語)**
