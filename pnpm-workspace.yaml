@@ -12,3 +12,11 @@ allowBuilds:
   '@parcel/watcher': false
   esbuild: true
   vue-demi: false
+
+# Snyk / GitHub Advisory 由来のセキュリティ override。同一メジャー内のパッチ更新で解決するもののみ、
+# メジャーを跨がないようレンジを区切って指定する(docustation 等と同じ運用)。
+# fast-uri: 3.1.6 (2026-08-23) で host confusion / SSRF 系4件を解消
+#   (GHSA-fph4-wmhf-6fwf, GHSA-5jgf-p345-68v8, GHSA-jqff-g426-hqxp, GHSA-f65p-4m7j-42xc)。
+#   ajv → schema-utils → webpack 経由の推移的依存で、pnpm update では lockfile が動かなかったため override で固定。
+overrides:
+  fast-uri@^3.0.0: ^3.1.6
