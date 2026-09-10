@@ -25,3 +25,8 @@ overrides:
   # BalancedPool の TLS 検証コールバック欠落 GHSA-w293-vg96-wgc3、WebSocket サブプロトコルの
   # 未処理 TypeError GHSA-rfgv-xxqx-mfg5 ほか 8 件)。 nuxt 本体経由の 8 系のみ。
   undici@^8.0.0: ^8.10.2
+  # svgo: 4.1.0 (2026-08-24) で removeScripts プラグインの XSS 2件に対応
+  #   GHSA-w27v-7q3p-w38r (名前空間付き <svg:a> と制御文字入り URL スキームの回避)
+  #   GHSA-4vpr-x523-8j87 (<foreignObject> 内の HTML イベントハンドラ未除去)
+  #   cssnano → postcss-svgo 経由の推移的依存。4.1.0 は XML 検証が厳格化されるため build で検証済み。
+  svgo@^4.0.0: ^4.1.0
