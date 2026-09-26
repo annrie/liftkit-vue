@@ -41,11 +41,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@unocss/core": "^66.7.5"
+    "@unocss/core": "^66.10.5"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
-    "unocss": "^66.7.5"
+    "unocss": "^66.10.5"
   }
 }
