@@ -32,3 +32,9 @@ overrides:
   #   GHSA-4vpr-x523-8j87 (<foreignObject> 内の HTML イベントハンドラ未除去)
   #   cssnano → postcss-svgo 経由の推移的依存。4.1.0 は XML 検証が厳格化されるため build で検証済み。
   svgo@^4.0.0: ^4.1.0
+  # postcss-selector-parser: 2026-10-06 の Snyk 指摘(Inefficient Algorithmic Complexity、7.1.5 以前)。
+  #   7.1.6 で解消。packages/nuxt と playground が postcss 系プラグイン経由で牽引する推移的依存。
+  postcss-selector-parser@^7.0.0: ^7.1.6
+  # seroval: Snyk の Allocation of Resources Without Limits(1.6.2 以前)。1.6.3 以降で解消。
+  #   nuxt (@nuxt/vite-builder) 経由の推移的依存。
+  seroval@^1.0.0: ^1.6.8
