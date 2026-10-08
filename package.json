@@ -6,7 +6,7 @@
     "typecheck": "pnpm -r typecheck",
     "dev": "pnpm --filter liftkit-vue-playground dev"
   },
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@11.28.5",
   "engines": {
     "node": ">=20"
   }
