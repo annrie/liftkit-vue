@@ -9,11 +9,7 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
-		compatibilityDate: '2026-02-23',
-		
-		future: {
-			compatibilityVersion: 4,
-		},
+  compatibilityDate: '2026-02-23',
   css: ['~/assets/css/main.css'],
   devtools: { enabled: false }
 })
