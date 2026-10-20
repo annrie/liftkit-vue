@@ -22,9 +22,24 @@ pnpm build
 pnpm --filter @liftkit-vue/core build
 pnpm --filter @liftkit-vue/nuxt build    # uses nuxt-module-build
 
-# Type check all packages
+# Type check all packages (core / nuxt / preset-unocss, including their test/ files)
 pnpm typecheck
+
+# Run all tests once (vitest, from the repo root)
+pnpm test
+
+# Watch mode
+pnpm test:watch
 ```
+
+CI (`.github/workflows/ci.yml`) runs `pnpm install --frozen-lockfile`, `pnpm typecheck` and `pnpm test` on every pull request.
+
+## Testing
+
+- Config: `vitest.config.ts` at the repo root. Default environment is `node`; a test that needs a DOM opts in with `// @vitest-environment happy-dom` on its first line.
+- Layout: package-specific tests live in `packages/<pkg>/test/*.test.ts` (mirroring `src/`); cross-package consistency tests live in the root `test/`.
+- Single `.vue` components are not mounted yet (no `@vitejs/plugin-vue` at the root). Composables are tested by mounting small `defineComponent` wrappers with `@vue/test-utils`.
+- `@material/material-color-utilities` is inlined in `vitest.config.ts` (its ESM build has extensionless imports that Node cannot resolve).
 
 ## Monorepo Structure
 
