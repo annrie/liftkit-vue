@@ -1,4 +1,19 @@
 {
   "extends": "../core/tsconfig.json",
-  "include": ["src/**/*.ts"]
+  "compilerOptions": {
+    // core は types に vite/client を指定しているが、nuxt パッケージは vite を依存に持たず解決できない(TS2688)ため空にする
+    "types": [],
+    // src/runtime が import する仮想モジュール #app を、nuxt パッケージが実際に配布している型(app.d.ts → dist/app)へ向ける。
+    // 本来は `nuxt prepare` が生成する .nuxt/tsconfig.json が同じ対応を持つが、このパッケージ単体の typecheck には無いため。
+    // 型の宣言を手書きしているのではなく、本物の型を参照している。baseUrl は非推奨なので使わず、tsconfig 相対で指定する。
+    // paths は継承元(core)のものを丸ごと置き換える。@nuxt/module-builder は継承元の paths のキー(@/*)が
+    // 最終的な設定に残っている前提で読むため(無いと "Cannot read properties of undefined (reading 'map')" で build が落ちる)、
+    // core と同じ @/* をここでも宣言して残す。nuxt パッケージ自体では @/ を使っていない
+    "paths": {
+      "@/*": ["./src/*"],
+      "#app": ["./node_modules/nuxt/app"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

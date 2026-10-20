@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-interface LkStateLayerProps {
+export interface LkStateLayerProps {
   bgColor?: LkColor | 'currentColor'
   forcedState?: 'hover' | 'active' | 'focus'
 }

@@ -11,6 +11,10 @@ export interface LkIconProps {
   [key: string]: unknown
 }
 
+// LkIconProps は -bold / -mono の fontClass を許すが、LkIcon はそれを受け付けない既存の不整合。
+// 公開型(LkIconProps)を狭めると破壊的変更になるため、LkIcon へバインドする箇所で型だけ合わせる(実行時は無関係)
+type LkIconBinding = InstanceType<typeof LkIcon>['$props']
+
 export interface LkMenuItemProps {
   startIcon?: LkIconProps
   endIcon?: LkIconProps
@@ -35,7 +39,7 @@ defineOptions({
   >
     <LkIcon
       v-if="startIcon"
-      v-bind="startIcon"
+      v-bind="(startIcon as LkIconBinding)"
       data-lk-icon-position="start"
     />
     <p data-lk-menu-item-element="content-wrap">
@@ -43,7 +47,7 @@ defineOptions({
     </p>
     <LkIcon
       v-if="endIcon"
-      v-bind="endIcon"
+      v-bind="(endIcon as LkIconBinding)"
       data-lk-icon-position="end"
     />
     <LkStateLayer />
