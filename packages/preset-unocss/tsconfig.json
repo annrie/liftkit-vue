@@ -9,6 +9,18 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "build.config.ts"],
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "build.config.ts",
+    // ルート直下の test/(パッケージをまたぐ整合性テスト)の型検査をここで受け持つ。
+    // ルートには tsconfig が無く、ルートの typecheck は `pnpm -r typecheck`(ワークスペースのルートは対象外)なので、
+    // どのプロジェクトにも入れないと vitest が変換するだけで型エラーを見逃す。
+    // 内容が preset ⇔ theme-css ⇔ core の突き合わせで、preset の src を import するため、preset のプロジェクトが最も自然。
+    "../../test/**/*.ts",
+    // 上のテストは core の debugUtils.ts を import し、そこで使われるグローバル型(LkColor など)は
+    // core の .d.ts が定義している。ほかのプロジェクトでは core の src ごと入っているが、preset には無いため明示する
+    "../core/src/types/**/*.d.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }
