@@ -26,7 +26,11 @@ overrides:
   # undici: 2026-09-04 の一括 advisory(cache interceptor のクロスオリジン汚染 GHSA-vp8m-p9jh-q5pm、
   # BalancedPool の TLS 検証コールバック欠落 GHSA-w293-vg96-wgc3、WebSocket サブプロトコルの
   # 未処理 TypeError GHSA-rfgv-xxqx-mfg5 ほか 8 件)。 nuxt 本体経由の 8 系のみ。
-  undici@^8.0.0: ^8.10.2
+  # 2026-10-20: 10-15 の一括 advisory(Agent の TLS オプション欠落 GHSA-2m5v-pch6-74hx、TLS 1.2 の
+  # 再ネゴシエーション DoS GHSA-qrxm-fqhp-jwvm、content-encoding の未処理エラー GHSA-xjj6-f33q-929c
+  # ほか 7 件。修正は 6.29.1 / 7.30.1 / 8.12.2)に合わせて下限を 8.12.2 へ。Snyk の通知は
+  # 「No remediation available yet」だったが、修正版は 10-15 に出ていた。
+  undici@^8.0.0: ^8.12.2
   # svgo: 4.1.0 (2026-08-24) で removeScripts プラグインの XSS 2件に対応
   #   GHSA-w27v-7q3p-w38r (名前空間付き <svg:a> と制御文字入り URL スキームの回避)
   #   GHSA-4vpr-x523-8j87 (<foreignObject> 内の HTML イベントハンドラ未除去)
@@ -47,3 +51,7 @@ overrides:
   # shell-quote: Snyk の Command Injection(1.10.0 以前)。1.11.0 以降で解消。
   #   @nuxt/devtools → launch-editor 経由の dev 依存。
   shell-quote@^1.0.0: ^1.12.0
+  # --- 以下は override しない(上流待ち)。2026-10-20 時点の Snyk 指摘 ---
+  # 修正版が存在しない(npm の最新が現行版):
+  #   picomatch 4.0.7 (SNYK-JS-PICOMATCH-21248802、ReDoS。全バージョンが対象で修正版なし。
+  #   playground と packages/nuxt の両方で通知。ビルド時のグロブ展開で、パターンは開発者が書いたものだけ)
