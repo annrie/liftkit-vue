@@ -38,3 +38,12 @@ overrides:
   # seroval: Snyk の Allocation of Resources Without Limits(1.6.2 以前)。1.6.3 以降で解消。
   #   nuxt (@nuxt/vite-builder) 経由の推移的依存。
   seroval@^1.0.0: ^1.6.8
+  # brace-expansion: 連続する空 {} グループによる指数時間展開 DoS と再帰によるスタック枯渇
+  #   (GHSA-6j4f-fj2g-mc7p / GHSA-qhr7-859c-m2p7 / GHSA-q2hr-2g5m-vwhr)。2 系と 5 系が同居する。
+  #   一律に 5 系へ統一してはいけない。v5 は default export を廃止しており、下位系統の
+  #   minimatch が落ちるので、メジャーごとにレンジを区切って各系統の最新へ上げる。
+  brace-expansion@^2.0.0: ^2.1.7
+  brace-expansion@^5.0.0: ^5.0.12
+  # shell-quote: Snyk の Command Injection(1.10.0 以前)。1.11.0 以降で解消。
+  #   @nuxt/devtools → launch-editor 経由の dev 依存。
+  shell-quote@^1.0.0: ^1.12.0
