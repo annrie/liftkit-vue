@@ -1,0 +1,39 @@
+name: ci
+
+# PR ごとに typecheck とテストを回し、検証の取りこぼしを防ぐ(push では回さず Actions の分数を節約する)。
+# 手動実行も残す: GitHub の Actions タブ → ci → Run workflow
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [22]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # バージョンは package.json の packageManager(pnpm@11.x)から読み取られる
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
