@@ -181,10 +181,11 @@ export function provideTheme(initialPalette?: Partial<PaletteState>) {
     dark: { ...defaultDarkColors },
   })
 
+  // Partial<PaletteState> のインデックスシグネチャは `string | undefined` になるため、型だけ PaletteState に合わせる
   const palette = ref<PaletteState>({
     ...defaultPalette,
     ...initialPalette,
-  })
+  } as PaletteState)
 
   const colorModePreference = ref<ColorModePreference>('auto')
   const colorMode = ref<'light' | 'dark'>('light')

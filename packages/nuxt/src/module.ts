@@ -23,7 +23,9 @@ export interface ModuleOptions {
   components: boolean
 }
 
-const module: NuxtModule = defineNuxtModule<ModuleOptions>({
+// defineNuxtModule<ModuleOptions>() の戻り値の型に合わせる(`NuxtModule` だけだと TOptionsDefaults が
+// Partial<ModuleOptions> になって代入できない)。型のみの修正で、実行時の出力は変わらない
+const module: NuxtModule<ModuleOptions, ModuleOptions, false> = defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@liftkit-vue/nuxt',
     configKey: 'liftkit',
