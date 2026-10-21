@@ -126,6 +126,10 @@ describe('provideTheme / useTheme', () => {
     expect(b.ctx.palette.value.primary).toBe('#035eff')
     expect(JSON.parse(b.initialTheme).light.primary).toBe('#004ee7')
   })
+
+  // 現状は、値が undefined のキー(例: provideTheme({ primary: maybeColor }))がスプレッドで既定値を潰し、
+  // マウント時の updateTheme(argbFromHex(undefined))が reject する。実行時の挙動をまだ変えていないので、todo として残す。
+  it.todo('値が undefined の初期パレットのキーは、既定値を上書きしない')
 })
 
 // ---- テーマ(トーン)の生成 -------------------------------------------------
