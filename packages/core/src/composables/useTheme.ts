@@ -181,7 +181,8 @@ export function provideTheme(initialPalette?: Partial<PaletteState>) {
     dark: { ...defaultDarkColors },
   })
 
-  // Partial<PaletteState> のインデックスシグネチャは `string | undefined` になるため、型だけ PaletteState に合わせる
+  // Partial<PaletteState> のインデックスシグネチャは `string | undefined` になるため、型だけ PaletteState に合わせる。
+  // 実行時は変えていない: 値が undefined のキーは既定値を上書きし、マウント時の updateTheme が reject する(既知。useTheme.test.ts の it.todo)
   const palette = ref<PaletteState>({
     ...defaultPalette,
     ...initialPalette,
