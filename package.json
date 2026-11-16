@@ -10,7 +10,7 @@
     "dev": "pnpm --filter liftkit-vue-playground dev"
   },
   "devDependencies": {
-    "@vue/test-utils": "^2.5.1",
+    "@vue/test-utils": "^2.6.0",
     "happy-dom": "^21.0.4",
     "vitest": "^4.1.12"
   },
