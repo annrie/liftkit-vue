@@ -36,8 +36,7 @@
   },
   "files": [
     "dist",
-    "src/css",
-    "src/components"
+    "src"
   ],
   "scripts": {
     "build": "vite build",

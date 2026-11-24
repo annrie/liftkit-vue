@@ -159,3 +159,44 @@ describe('コンポーネントの自動インポート', () => {
     expect([...names].filter((name) => !exported.includes(name))).toEqual([])
   })
 })
+
+describe('core が公開するファイル', () => {
+  // モジュールは core の dist ではなく src の .vue を登録する。npm の公開物に import 先が入っていないと、
+  // workspace の中では動くのに、インストールした側のビルドだけが失敗する(0.2.4 で発生)。
+  const packageRoot = path.dirname(coreRoot)
+  const { files } = JSON.parse(fs.readFileSync(path.join(packageRoot, 'package.json'), 'utf-8')) as { files: string[] }
+  const isPublished = (file: string) => files.some((entry) => {
+    const relative = path.relative(path.join(packageRoot, entry), file)
+    return relative === '' || !relative.startsWith('..')
+  })
+
+  const resolveImport = (from: string, specifier: string) => {
+    const base = path.resolve(path.dirname(from), specifier)
+    return [base, `${base}.ts`, path.join(base, 'index.ts')]
+      .find((file) => fs.existsSync(file) && fs.statSync(file).isFile())
+  }
+
+  it('登録する部品と CSS、その相対 import の先が、すべて公開対象に含まれる', () => {
+    const css = [...runSetup({ includeReset: true }), ...runSetup({ includeReset: false })]
+    const queue = [...addComponent.mock.calls.map(([component]) => (component as { filePath: string }).filePath), ...css]
+    const visited = new Set<string>()
+    const unresolved: string[] = []
+
+    for (let file = queue.pop(); file; file = queue.pop()) {
+      if (visited.has(file)) continue
+      visited.add(file)
+      const source = fs.readFileSync(file, 'utf-8')
+      for (const [, specifier] of source.matchAll(/(?:from|import)\s+['"](\.{1,2}\/[^'"]+)['"]/g)) {
+        const target = resolveImport(file, specifier)
+        if (target) queue.push(target)
+        else unresolved.push(`${path.relative(packageRoot, file)} -> ${specifier}`)
+      }
+    }
+
+    expect(unresolved).toEqual([])
+    // たどれていること自体の確認(composables と utils まで届く)
+    expect(visited).toContain(path.join(coreRoot, 'composables/useTheme.ts'))
+    expect(visited).toContain(path.join(coreRoot, 'utils/utilities.ts'))
+    expect([...visited].filter((file) => !isPublished(file)).map((file) => path.relative(packageRoot, file)).sort()).toEqual([])
+  })
+})
