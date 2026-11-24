@@ -40,7 +40,7 @@ overrides:
   # 再ネゴシエーション DoS GHSA-qrxm-fqhp-jwvm、content-encoding の未処理エラー GHSA-xjj6-f33q-929c
   # ほか 7 件。修正は 6.29.1 / 7.30.1 / 8.12.2)に合わせて下限を 8.12.2 へ。Snyk の通知は
   # 「No remediation available yet」だったが、修正版は 10-15 に出ていた。
-  undici@^8.0.0: ^8.12.2
+  undici@^8.0.0: ^8.13.1
   # svgo: 4.1.0 (2026-08-24) で removeScripts プラグインの XSS 2件に対応
   #   GHSA-w27v-7q3p-w38r (名前空間付き <svg:a> と制御文字入り URL スキームの回避)
   #   GHSA-4vpr-x523-8j87 (<foreignObject> 内の HTML イベントハンドラ未除去)
@@ -53,7 +53,7 @@ overrides:
   #   nuxt (@nuxt/vite-builder) 経由の推移的依存。
   # 2026-10-31: 1.6.11 で GHSA-9wx9-5pv9-3349(RegExp のソースによるスクリプト注入)と
   # GHSA-f86p-h4j2-7qgj(typed array の constructor プロパティ経由のコード注入)に対応。
-  seroval@^1.0.0: ^1.6.11
+  seroval@^1.0.0: ^1.8.2
   # brace-expansion: 連続する空 {} グループによる指数時間展開 DoS と再帰によるスタック枯渇
   #   (GHSA-6j4f-fj2g-mc7p / GHSA-qhr7-859c-m2p7 / GHSA-q2hr-2g5m-vwhr)。2 系と 5 系が同居する。
   #   一律に 5 系へ統一してはいけない。v5 は default export を廃止しており、下位系統の
