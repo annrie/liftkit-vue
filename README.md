@@ -100,8 +100,8 @@ For manual CSS imports (without the Nuxt module):
 /* Tokens only — safe with any UI framework */
 @import '@liftkit-vue/core/css/liftkit-tokens.css';
 
-/* Full — tokens, element resets, utility and component classes (LiftKit-only projects) */
-@import '@liftkit-vue/core/css/index.css';
+/* Full — tokens, element resets, utility classes and all component styles (LiftKit-only projects) */
+@import '@liftkit-vue/core/style.css';
 ```
 
 ## Features
@@ -224,8 +224,8 @@ export default defineNuxtConfig({
 /* トークンのみ — 外部UIフレームワークと安全に併用可能 */
 @import '@liftkit-vue/core/css/liftkit-tokens.css';
 
-/* フル — トークン・要素リセット・ユーティリティと部品のクラス（LiftKit単独プロジェクト向け） */
-@import '@liftkit-vue/core/css/index.css';
+/* フル — トークン・要素リセット・ユーティリティクラスと全部品のスタイル（LiftKit単独プロジェクト向け） */
+@import '@liftkit-vue/core/style.css';
 ```
 
 ## 機能

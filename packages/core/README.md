@@ -14,6 +14,16 @@ For Nuxt projects, use [`@liftkit-vue/nuxt`](../nuxt) instead for auto-imports.
 
 ## Usage
 
+### Styles
+
+Import the stylesheet once in your app entry (the JavaScript bundle does not import it):
+
+```ts
+import '@liftkit-vue/core/style.css'
+```
+
+It contains the design tokens, element resets, utility classes and all component styles.
+
 ### Theme Setup
 
 Wrap your app with `LkTheme` to provide the theme context:
@@ -107,6 +117,16 @@ npm install @liftkit-vue/core
 Nuxt プロジェクトでは、自動インポート対応の [`@liftkit-vue/nuxt`](../nuxt) を使用してください。
 
 ## 使い方
+
+### スタイル
+
+アプリの入口で、スタイルシートを1回読み込みます（JavaScript 側からは読み込まれません）:
+
+```ts
+import '@liftkit-vue/core/style.css'
+```
+
+デザイントークン、要素リセット、ユーティリティクラス、全部品のスタイルを含みます。
 
 ### テーマのセットアップ
 

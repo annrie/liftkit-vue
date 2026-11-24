@@ -95,7 +95,7 @@ All components are prefixed `Lk` (e.g., `LkButton`, `LkCard`, `LkTheme`). Most a
 1. `vite build` bundles `src/bundle.ts` (CSS + `src/index.ts`) to ESM (`.mjs`), CJS (`.cjs`) and `core.css`. The CSS import lives in `bundle.ts`, not in `index.ts`, so that it does not end up in the type declarations.
 2. `vue-tsc -p tsconfig.build.json` emits the type declarations (`dist/**/*.d.ts`), then the hand-written global types in `src/types/*.d.ts` are copied to `dist/types/`.
 
-Vue, `@floating-ui/vue`, and `lucide-vue-next` are externalized. CSS files are exported via `./css/*` path mapping (not bundled into JS).
+Vue, `@floating-ui/vue`, and `lucide-vue-next` are externalized. CSS is not imported by the JS output: `dist/core.css` is exported as `./style.css` (everything, including the scoped styles of single `.vue` files), and the source CSS files via the `./css/*` path mapping.
 
 ### Key Dependencies
 
