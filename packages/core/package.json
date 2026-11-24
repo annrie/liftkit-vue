@@ -28,9 +28,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./css/*": "./src/css/*"
   },
@@ -39,7 +39,7 @@
     "src"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && vue-tsc -p tsconfig.build.json && cp src/types/*.d.ts dist/types/",
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {

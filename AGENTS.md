@@ -86,7 +86,12 @@ All components are prefixed `Lk` (e.g., `LkButton`, `LkCard`, `LkTheme`). Most a
 
 ### Core Package Build
 
-`packages/core` builds as a Vite library (`vite build`) outputting ESM (`.mjs`) and CJS (`.cjs`). Vue, `@floating-ui/vue`, and `lucide-vue-next` are externalized. CSS files are exported via `./css/*` path mapping (not bundled into JS).
+`packages/core` builds in two steps (`pnpm --filter @liftkit-vue/core build`):
+
+1. `vite build` bundles `src/bundle.ts` (CSS + `src/index.ts`) to ESM (`.mjs`), CJS (`.cjs`) and `core.css`. The CSS import lives in `bundle.ts`, not in `index.ts`, so that it does not end up in the type declarations.
+2. `vue-tsc -p tsconfig.build.json` emits the type declarations (`dist/**/*.d.ts`), then the hand-written global types in `src/types/*.d.ts` are copied to `dist/types/`.
+
+Vue, `@floating-ui/vue`, and `lucide-vue-next` are externalized. CSS files are exported via `./css/*` path mapping (not bundled into JS).
 
 ### Key Dependencies
 

@@ -1,0 +1,10 @@
+{
+  // 型定義(dist/**/*.d.ts)の出力用。test を含めると src の外にも .d.ts が書かれるため、src だけを対象にする
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "emitDeclarationOnly": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "exclude": ["src/bundle.ts"]
+}

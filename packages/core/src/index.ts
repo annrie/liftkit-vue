@@ -1,6 +1,3 @@
-// CSS
-import './css/index.css'
-
 // Composables
 export * from './composables'
 
