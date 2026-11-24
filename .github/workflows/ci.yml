@@ -37,3 +37,10 @@ jobs:
 
       - name: Test
         run: pnpm test
+
+      # 公開する型定義(dist/index.d.ts)は typecheck では検査されないため、ビルドして利用者と同じ条件で確かめる
+      - name: Build core
+        run: pnpm --filter @liftkit-vue/core build
+
+      - name: Typecheck published types
+        run: pnpm --filter @liftkit-vue/core typecheck:dist

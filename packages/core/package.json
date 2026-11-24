@@ -40,7 +40,8 @@
   ],
   "scripts": {
     "build": "vite build && vue-tsc -p tsconfig.build.json && cp src/types/*.d.ts dist/types/",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "typecheck:dist": "tsc -p type-check/tsconfig.json"
   },
   "dependencies": {
     "@csstools/normalize.css": "^12.1.1",

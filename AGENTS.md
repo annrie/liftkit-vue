@@ -25,6 +25,9 @@ pnpm --filter @liftkit-vue/nuxt build    # uses nuxt-module-build
 # Type check all packages (core / nuxt / preset-unocss, including their test/ files and the root test/)
 pnpm typecheck
 
+# Type check the published declarations (dist/) the way a consumer would; build core first
+pnpm --filter @liftkit-vue/core typecheck:dist
+
 # Run all tests once (vitest, from the repo root)
 pnpm test
 
@@ -32,13 +35,14 @@ pnpm test
 pnpm test:watch
 ```
 
-CI (`.github/workflows/ci.yml`) runs `pnpm install --frozen-lockfile`, `pnpm typecheck` and `pnpm test` on every pull request.
+CI (`.github/workflows/ci.yml`) runs `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm test`, the core build and `typecheck:dist` on every pull request.
 
 ## Testing
 
 - Config: `vitest.config.ts` at the repo root. Default environment is `node`; a test that needs a DOM opts in with `// @vitest-environment happy-dom` on its first line.
 - Layout: package-specific tests live in `packages/<pkg>/test/*.test.ts` (mirroring `src/`); cross-package consistency tests live in the root `test/`.
 - Type checking of tests: the root has no `tsconfig.json` and `pnpm typecheck` is `pnpm -r typecheck` (which skips the workspace root), so every TypeScript file must be included by a package `tsconfig.json`. `packages/*/test/` is covered by each package's own config; the root `test/` is covered by `packages/preset-unocss/tsconfig.json` (together with core's global type declarations).
+- `packages/core/type-check/consumer.ts` is checked by `typecheck:dist` (its own `tsconfig.json`), not by `pnpm typecheck`, because it needs `dist/`.
 - Not covered by `pnpm typecheck` (on purpose): the root `vitest.config.ts`, `packages/core/vite.config.ts` (needs Node types that core does not resolve) and the playground's configs (Nuxt app, not type-checked here).
 - Single `.vue` components are not mounted yet (no `@vitejs/plugin-vue` at the root). Composables are tested by mounting small `defineComponent` wrappers with `@vue/test-utils`.
 - `@material/material-color-utilities` is inlined in `vitest.config.ts` (its ESM build has extensionless imports that Node cannot resolve).

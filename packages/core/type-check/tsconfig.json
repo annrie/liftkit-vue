@@ -1,0 +1,15 @@
+{
+  // 公開する型定義(dist/**/*.d.ts)を、利用者と同じ条件で検査する。先に build が必要。
+  // skipLibCheck を切って、.d.ts そのものの誤り(CSS の import が残るなど)も検出する
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": false,
+    "types": []
+  },
+  "files": ["consumer.ts"]
+}
