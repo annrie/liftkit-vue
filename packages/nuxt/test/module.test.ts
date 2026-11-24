@@ -27,12 +27,15 @@ const definition = nuxtModule as unknown as ModuleDefinition
 
 const coreRoot = path.resolve(import.meta.dirname, '../../core/src')
 
-/** setup を実行して、Nuxt の css 配列に積まれたパスを返す */
-function runSetup(options: Partial<ModuleOptions> = {}) {
-  const nuxt = { options: { css: [] as string[] } }
+/** setup を実行して、変更された Nuxt のオプションを返す */
+function setupOptions(options: Partial<ModuleOptions> = {}) {
+  const nuxt = { options: { css: [] as string[], build: { transpile: [] as string[] } } }
   definition.setup({ ...definition.defaults, ...options }, nuxt)
-  return nuxt.options.css
+  return nuxt.options
 }
+
+/** setup を実行して、Nuxt の css 配列に積まれたパスを返す */
+const runSetup = (options: Partial<ModuleOptions> = {}) => setupOptions(options).css
 
 const cssNames = (paths: string[]) => paths.map((file) => path.basename(file))
 
@@ -88,6 +91,14 @@ describe('CSS の注入', () => {
     expect(all.length).toBeGreaterThan(30)
     for (const file of all) {
       expect(fs.existsSync(file), file).toBe(true)
+    }
+  })
+})
+
+describe('依存の変換', () => {
+  it('拡張子なしの import を含み Node が直接読めない依存を、常に Vite の変換対象にする', () => {
+    for (const options of [{}, { css: 'none' as const }, { components: false }]) {
+      expect(setupOptions(options).build.transpile, JSON.stringify(options)).toEqual(['@material/material-color-utilities'])
     }
   })
 })

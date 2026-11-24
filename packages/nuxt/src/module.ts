@@ -38,6 +38,10 @@ const module: NuxtModule<ModuleOptions, ModuleOptions, false> = defineNuxtModule
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
+    // 0.4.0 の ESM は拡張子なしの相対 import を含み、Node の ESM ローダーでは解決できない。
+    // SSR の開発サーバーが外部化して直接読み込むと 500 になるため、Vite に変換させる。
+    nuxt.options.build.transpile.push('@material/material-color-utilities')
+
     // CSS インジェクション
     if (options.css !== 'none') {
       if (options.css === 'tokens') {
